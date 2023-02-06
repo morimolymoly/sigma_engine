@@ -4,14 +4,14 @@ use format_serde_error::SerdeError;
 use serde::{de::Error, Deserialize, Serialize};
 use std;
 
-fn parse(rule: &str) -> Result<sigma::SigmaRule, anyhow::Error> {
+pub fn parse_sigma(rule: &str) -> Result<sigma::SigmaRule, anyhow::Error> {
     let sigma: sigma::SigmaRule = serde_yaml::from_str(rule)?;
     Ok(sigma)
 }
 
 #[cfg(test)]
 mod tests {
-    use super::parse;
+    use super::*;
 
     #[test]
     fn it_works() {
@@ -28,11 +28,13 @@ mod tests {
         level: high
         ";
 
-        let result = parse(rule);
+        let result = parse_sigma(rule);
         match result {
-            Ok(_) => {}
+            Ok(d) => {
+                println!("{:?}", d.header.level.unwrap());
+            }
             Err(e) => {
-                println!("erro parsing");
+                panic!("{:?}", e);
             }
         }
     }

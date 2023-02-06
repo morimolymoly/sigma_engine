@@ -1,5 +1,5 @@
-mod parser;
-mod sigma;
+pub mod parser;
+pub mod sigma;
 
 #[cfg(test)]
 mod tests {

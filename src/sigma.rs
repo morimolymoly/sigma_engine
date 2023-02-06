@@ -2,7 +2,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct SigmaRule {
-    header: Header,
+    #[serde(default, flatten)]
+    pub header: Header,
     // todo: detection and condition
 }
 
@@ -25,6 +26,7 @@ pub struct Header {
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
 pub enum Status {
     Stable,
     Test,
@@ -33,6 +35,7 @@ pub enum Status {
     Unsupported,
 }
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
 pub enum Level {
     Informational,
     Low,
@@ -47,6 +50,7 @@ pub struct Related {
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
 pub enum Type {
     Derived,
     Obsoletes,
